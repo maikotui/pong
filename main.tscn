@@ -1,36 +1,258 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://sprites/separator.png" type="Texture" id=1]
 [ext_resource path="res://sprites/paddle.png" type="Texture" id=2]
 [ext_resource path="res://paddle_controller.gd" type="Script" id=3]
+[ext_resource path="res://sprites/ball.png" type="Texture" id=4]
+[ext_resource path="res://ball_controller.gd" type="Script" id=5]
+[ext_resource path="res://out_of_bounds_area.gd" type="Script" id=6]
+[ext_resource path="res://better-pixels.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://ui_manager.gd" type="Script" id=8]
+[ext_resource path="res://pixel_theme.tres" type="Theme" id=9]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="DynamicFont" id=1]
+size = 150
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 70
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 150
+font_data = ExtResource( 7 )
+
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 4, 16 )
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id=6]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 325, 2 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 2, 202 )
+
+[node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="UI" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.972549, 0.964706, 1, 0.352941 )
+text = "00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0156863, 0.2, 0.215686, 0.317647 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Front" type="CanvasLayer" parent="UI"]
+layer = 2
+
+[node name="EndScreen" type="ColorRect" parent="UI/Front"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.780392 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOverText" type="Label" parent="UI/Front/EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -150.0
+margin_right = 150.0
+margin_bottom = -50.0
+custom_fonts/font = SubResource( 2 )
+text = "Game Over"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="UI/Front/EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -100.0
+margin_right = 150.0
+custom_fonts/font = SubResource( 3 )
+text = "Score:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="UI/Front/EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 4 )
+text = "01"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="UI/Front/EndScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = 60.0
+margin_right = 76.0
+margin_bottom = 98.0
+theme = ExtResource( 9 )
+text = "Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseScreen" type="ColorRect" parent="UI/Front"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.780392 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="PausedText" type="Label" parent="UI/Front/PauseScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -100.0
+margin_right = 300.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 4 )
+text = "Paused"
+align = 1
+valign = 1
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Tween" type="Tween" parent="UI"]
 
 [node name="Separator" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 
 [node name="LeftPaddle" type="KinematicBody2D" parent="."]
 position = Vector2( -250, 0 )
+collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="PaddleSprite" type="Sprite" parent="LeftPaddle"]
-modulate = Color( 0, 1, 0.0156863, 1 )
+modulate = Color( 0.45098, 0.701961, 1, 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftPaddle"]
-shape = SubResource( 1 )
+shape = SubResource( 5 )
 
 [node name="RightPaddle" type="KinematicBody2D" parent="."]
 position = Vector2( 250, 0 )
+collision_layer = 2
+script = ExtResource( 3 )
+player = 2
 
 [node name="PaddleSprite" type="Sprite" parent="RightPaddle"]
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightPaddle"]
-shape = SubResource( 1 )
+shape = SubResource( 5 )
+
+[node name="Ball" type="KinematicBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 5 )
+speed = 300.0
+
+[node name="Sprite" type="Sprite" parent="Ball"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource( 6 )
+
+[node name="YBounds" type="StaticBody2D" parent="."]
+position = Vector2( 300, 0 )
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="YBounds"]
+position = Vector2( -300, -200 )
+shape = SubResource( 7 )
+
+[node name="Bottom" type="CollisionShape2D" parent="YBounds"]
+position = Vector2( -300, 200 )
+shape = SubResource( 7 )
+
+[node name="LeftOOB" type="Area2D" parent="."]
+position = Vector2( -325, 0 )
+collision_mask = 4
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftOOB"]
+shape = SubResource( 8 )
+
+[node name="RightOOB" type="Area2D" parent="."]
+position = Vector2( 325, 0 )
+collision_mask = 4
+script = ExtResource( 6 )
+side = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightOOB"]
+shape = SubResource( 8 )
