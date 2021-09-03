@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "BallController",
 "language": "GDScript",
 "path": "res://scripts/ball_controller.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "PaddleController",
 "language": "GDScript",
 "path": "res://scripts/paddle_controller.gd"
