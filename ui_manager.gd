@@ -1,5 +1,7 @@
 extends Control
+# Controls the in-game UI.
 
+# Public variables
 var is_paused:bool = false
 
 
@@ -10,17 +12,7 @@ func _ready():
 	$Front/EndScreen/Button.connect("pressed", GameController, "display_main_menu")
 
 
-func _update_score(val):
-	$Score.text = "%02d" % val;
-
-
-func _display_end_of_game():
-	$Score.visible = false
-	$Front/EndScreen/Score.text = "%02d" % GameController.score
-	$Front/EndScreen.visible = true
-	$Tween.interpolate_property($Front/EndScreen, "modulate", Color(1,1,1,0), Color(1,1,1,1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	$Tween.start()
-
+# Called when an input event occurs
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if is_paused:
@@ -31,3 +23,17 @@ func _input(event):
 			GameController.pause_game()
 			$Front/PauseScreen.visible = true
 			is_paused = true
+
+
+# Updates the score display
+func _update_score(val):
+	$Score.text = "%02d" % val;
+
+
+# Displays a menu with end of game information.
+func _display_end_of_game():
+	$Score.visible = false
+	$Front/EndScreen/Score.text = "%02d" % GameController.score
+	$Front/EndScreen.visible = true
+	$Tween.interpolate_property($Front/EndScreen, "modulate", Color(1,1,1,0), Color(1,1,1,1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	$Tween.start()
