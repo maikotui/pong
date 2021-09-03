@@ -32,7 +32,6 @@ func _update_score(val):
 
 # Displays a menu with end of game information.
 func _display_end_of_game():
-	$Score.visible = false
 	$Front/EndScreen/Score.text = "%02d" % GameController.score
 	$Front/EndScreen.visible = true
 	$Tween.interpolate_property($Front/EndScreen, "modulate", Color(1,1,1,0), Color(1,1,1,1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
