@@ -4,9 +4,11 @@ extends Control
 
 # Triggers the start of the game when the start button is clicked
 func start_game():
-	GameController.start_game()
+	$SelectSound.connect("finished", GameController, "start_game", [], $SelectSound.CONNECT_ONESHOT)
+	$SelectSound.play()
 
 
 # Exits the application when the quit button is clicked
 func quit():
-	get_tree().quit(1)
+	$SelectSound.connect("finished", get_tree(), "quit", [1], $SelectSound.CONNECT_ONESHOT)
+	$SelectSound.play()

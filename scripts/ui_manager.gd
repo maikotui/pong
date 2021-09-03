@@ -9,12 +9,13 @@ var is_paused:bool = false
 func _ready():
 	GameController.connect("score_updated", self, "_update_score")
 	GameController.connect("game_ended", self, "_display_end_of_game")
-	$Front/EndScreen/Button.connect("pressed", GameController, "display_main_menu")
+	$Front/EndScreen/MainMenuButton.connect("pressed", self, "_process_main_menu_button_pressed")
 
 
 # Called when an input event occurs
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
+		$SelectSound.play()
 		if is_paused:
 			GameController.unpause_game()
 			$Front/PauseScreen.visible = false
@@ -36,3 +37,8 @@ func _display_end_of_game():
 	$Front/EndScreen.visible = true
 	$Tween.interpolate_property($Front/EndScreen, "modulate", Color(1,1,1,0), Color(1,1,1,1), 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
+
+
+func _process_main_menu_button_pressed():
+	$SelectSound.connect("finished", GameController, "display_main_menu", [], $SelectSound.CONNECT_ONESHOT)
+	$SelectSound.play()
