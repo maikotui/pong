@@ -13,4 +13,5 @@ func _ready():
 
 # Triggers the end of game when the Area is entered.
 func _end_game(_body):
+	$GameEndSound.play()
 	GameController.end_game(side)
