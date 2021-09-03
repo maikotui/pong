@@ -60,3 +60,4 @@ func _on_ball_velocity_changed(new_dir: Vector2):
 func _on_ball_bounced():
 	if player != PlayerType.AI:
 		GameController.increment_score()
+	$BounceAudio.play()
