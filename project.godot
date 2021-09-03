@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "BallController",
 "language": "GDScript",
-"path": "res://ball_controller.gd"
+"path": "res://scripts/ball_controller.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "PaddleController",
 "language": "GDScript",
-"path": "res://paddle_controller.gd"
+"path": "res://scripts/paddle_controller.gd"
 } ]
 _global_script_class_icons={
 "BallController": "",
@@ -32,7 +32,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameController="*res://game_controller.gd"
+GameController="*res://scripts/game_controller.gd"
 
 [display]
 
@@ -86,5 +86,5 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/intended_usage/framebuffer_allocation=0
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://visual/default_env.tres"
 quality/dynamic_fonts/use_oversampling=false

@@ -19,7 +19,7 @@ var is_active: bool = false
 
 # Loads the game scene and prepares for the game to start
 func start_game():
-	get_tree().change_scene("res://main.tscn")
+	get_tree().change_scene("res://game.tscn")
 	is_active = true
 	score = 0
 
