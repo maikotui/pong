@@ -53,3 +53,13 @@ func unpause_game():
 func display_main_menu():
 	get_tree().change_scene("res://main_menu.tscn")
 	is_active = false
+
+
+# Generate a value of either negative one or one
+func generate_random_negative_or_positive() -> int:
+	randomize()
+	var x = randf()
+	if x < 0.5:
+		return 1
+	else:
+		return -1
